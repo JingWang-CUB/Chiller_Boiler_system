@@ -1,0 +1,84 @@
+Program Version,EnergyPlus, Version 8.5.0-c87e61b44b, YMD=2020.03.01 15:03,IDD_Version 8.5.0
+   ** Warning ** Output:PreprocessorMessage="Conversion 7.2 => 8.0" has the following Warning conditions:
+   **   ~~~   ** Boiler:HotWater="HeatSys1 Boiler"
+   **   ~~~   ** defaults for this object have changed. Results may be different than previous. See
+   **   ~~~   ** InputOutputReference document for details.
+   ** Warning ** Output:PreprocessorMessage="Conversion 7.2 => 8.0" has the following Warning conditions:
+   **   ~~~   ** Chiller:Electric:ReformulatedEIR="CoolSys1 Chiller 1"
+   **   ~~~   ** defaults for this object have changed. See InputOutputReference document for details.
+   ** Warning ** Output:PreprocessorMessage="Conversion 7.2 => 8.0" has the following Warning conditions:
+   **   ~~~   ** Chiller:Electric:ReformulatedEIR="CoolSys1 Chiller 2"
+   **   ~~~   ** defaults for this object have changed. See InputOutputReference document for details.
+   ** Warning ** Sizing:Parameters: note Timesteps in Averaging Window entered value=[6] is less than 1 hour (i.e., 60 timesteps).
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ************* Beginning System Sizing Calculations
+   ************* Beginning Plant Sizing Calculations
+   ** Warning ** Output:Meter: invalid Name="HUMIDIFIER:ELECTRICITY" - not found.
+   ** Warning ** Output:Meter: invalid Name="REFRIGERATION:ELECTRICITY" - not found.
+   ** Warning ** Output:Meter: invalid Name="WATERSYSTEMS:ELECTRICITY" - not found.
+   ** Warning ** Output:Meter: invalid Name="INTERIOREQUIPMENT:GAS" - not found.
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "COOLSYS1 CHILLER 1": The condenser outlet temperature (31.63 C) is outside the range of condenser outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC SCREW GTE 300TONS DEFAULT 90.1-2004 EIR_FPLR
+   **   ~~~   ** The range specified = 18.54 C to 31.63 C. Environment=CHICAGO ANN CLG .4% CONDNS WB=>MDB, at Simulation time=07/21 11:27 - 11:28
+   ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "COOLSYS1 CHILLER 2": The condenser outlet temperature (31.63 C) is outside the range of condenser outlet temperatures (X var) given in Electric Input to Cooling Output Ratio Function of Part-load Ratio bicubic curve = WC SCREW GTE 300TONS DEFAULT 90.1-2004 EIR_FPLR
+   **   ~~~   ** The range specified = 18.54 C to 31.63 C. Environment=CHICAGO ANN CLG .4% CONDNS WB=>MDB, at Simulation time=07/21 11:27 - 11:28
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="PERIMETER_TOP_ZN_1" did not converge after 25 warmup days.
+   **   ~~~   ** See Warmup Convergence Information in .eio file for details.
+   **   ~~~   ** ...Environment(RunPeriod)="Chicago Ohare Intl Ap IL USA TMY3 WMO#=725300"
+   **   ~~~   ** ..Max Temp Comparison = 7.69E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 7.93E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 4.8812E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 2.0488E-002 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="PERIMETER_TOP_ZN_2" did not converge after 25 warmup days.
+   **   ~~~   ** ...Environment(RunPeriod)="Chicago Ohare Intl Ap IL USA TMY3 WMO#=725300"
+   **   ~~~   ** ..Max Temp Comparison = 1.53E-005 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 7.84E-002 vs Temperature Convergence Tolerance=0.20 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 9.8302E-002 vs Loads Convergence Tolerance=4.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 1.0000 vs Loads Convergence Tolerance=4.00E-002 - Pass Convergence
+   ************* Simulation Error Summary *************
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "COOLSYS1 CHILLER 1": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
+   *************  **   ~~~   **   This error occurred 770 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=32.386985  Min=31.631173
+   *************
+   *************  ** Warning ** CHILLER:ELECTRIC:REFORMULATEDEIR "COOLSYS1 CHILLER 2": The cond outlet temp range in Electric Input to Cooling Output Ratio Function of PLR curve error continues.
+   *************  **   ~~~   **   This error occurred 770 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=32.386985  Min=31.631173
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Loads Initialization did not Converge
+   ************* ..1) very high thermal mass such as very thick concrete (solution: increase max number of warmup
+   ************* ..   days in the BUILDING object);
+   ************* ..2) moderate mass and inadequate space conditioning such that the building keeps getting warmer
+   ************* ..   and warmer on successive days (solution: add HVAC, check building thermal properties,
+   ************* ..   check if infiltration is included, make sure HVAC properly controlled);
+   ************* ..3) a soil layer modeled below the concrete slab - (solution remove this layer and read about
+   ************* ..   ground temperatures in the Auxiliary Programs document).
+   ************* ..4) unreasonable (too small) limits in the BUILDING object for temperature (.4 default) or
+   ************* ..   loads tolerances (.04 default)
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 2 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 2 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 1551 Warning; 2 Severe Errors; Elapsed Time=00hr 04min  1.29sec
