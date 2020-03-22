@@ -1,0 +1,1 @@
+python EnergyPlusToFMU.py -i /usr/local/Energy+.idd -w run/wea.epw run/building_fmu.idf

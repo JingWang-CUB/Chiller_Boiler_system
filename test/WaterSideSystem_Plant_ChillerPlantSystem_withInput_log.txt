@@ -1,0 +1,43 @@
+FMIL: module = FMICAPI, log level = 5: Calling fmi2SetupExperiment
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterInitializationMode
+FMIL: module = Model, log level = 4: [INFO][FMU status:OK] <JMIRuntime><value name="build_date">"Dec  6 2018"</value> <value name="build_time">"19:11:42"</value></JMIRuntime>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <ModelicaMessage category="warning"><value name="msg">"... loading ""tab1"" from ""Resources/WeatherData/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos""&#10;"</value></ModelicaMessage>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <ModelicaMessage category="warning"><value name="msg">"... loading ""tab1"" from ""Resources/WeatherData/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos""&#10;"</value></ModelicaMessage>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = Model, log level = 3: [WARNING][FMU status:Warning] <AssertionWarning category="warning"><value name="msg">"*** Warning: You are using a flow or pressure controlled mover with the&#10;             default pressure curve.&#10;             This leads to approximate calculations of the electrical power&#10;             consumption. Add the correct pressure curve in the record per&#10;             to obtain an accurate computation.&#10;             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning."</value></AssertionWarning>
+FMIL: module = FMICAPI, log level = 5: Calling fmi2ExitInitializationMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterEventMode
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2NewDiscreteStates
+FMIL: module = FMICAPI, log level = 5: Calling fmi2EnterContinuousTimeMode
