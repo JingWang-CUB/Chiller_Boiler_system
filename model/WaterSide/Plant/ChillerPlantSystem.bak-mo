@@ -1,5 +1,5 @@
 within WaterSide.Plant;
-model ChillerPlantSystem_FMU
+model ChillerPlantSystem
   "The model is designed to simulate the Lejeune Plant(simulation period:1year)"
   import ChillerPlantSystem = WaterSide.Plant;
   extends Modelica.Icons.Example;
@@ -29,8 +29,6 @@ model ChillerPlantSystem_FMU
     "Temperature at condenser water wide";
   parameter Modelica.SIunits.TemperatureDifference dTApp_nominal=4.44
     "Nominal approach temperature";
-  parameter Modelica.SIunits.TemperatureDifference dTApp=4.44
-    "Approach temperature for controlling cooling towers";
   parameter Real COP_nominal = 6.61 "Chiller COP";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal = 1442/4.2/5.56
     "Nominal mass flow rate at chilled water side";
@@ -63,7 +61,7 @@ model ChillerPlantSystem_FMU
     mCW_flow_nominal=mCW_flow_nominal,
     TCW_start=273.15 + 23.89,
     TCHW_start=273.15 + 5.56,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD())
+    per=datChi)
     annotation (Placement(transformation(extent={{-96,-28},{-58,10}})));
   BaseClasses.Components.Building        bui(
     redeclare package Medium = MediumCHW,
@@ -72,7 +70,7 @@ model ChillerPlantSystem_FMU
     dP_nominal=dP_nominal*0.5,
     GaiPi=0.1,
     tIntPi=60)
-    annotation (Placement(transformation(extent={{106,8},{86,28}})));
+    annotation (Placement(transformation(extent={{108,8},{88,28}})));
   ChillerPlantSystem.Pump.SecPumpSystem pumSecCHW(
     redeclare package Medium = MediumCHW,
     dP_nominal=dP_nominal,
@@ -85,9 +83,8 @@ model ChillerPlantSystem_FMU
     N_nominal=1500,
     dPFrihealos_nominal=dP_nominal*0.5)
     annotation (Placement(transformation(extent={{44,-108},{78,-72}})));
-  Modelica.Blocks.Sources.RealExpression TCHWSetReset(y=(cooLoa.building_fmu_fmu1.TOutDryBul
-         - 15.56)/(11.11)*(-5.55) + 11.22 + 273.15)
-    annotation (Placement(transformation(extent={{-260,32},{-240,52}})));
+  Modelica.Blocks.Sources.Constant TCHWSet(k=273.15 + 5.56)
+    annotation (Placement(transformation(extent={{-260,38},{-240,58}})));
   ChillerPlantSystem.Pump.PumpSystem pumPriCHW(
     Motor_eta=Motor_eta,
     Hydra_eta=Hydra_eta,
@@ -140,19 +137,20 @@ model ChillerPlantSystem_FMU
   Buildings.Fluid.Storage.ExpansionVessel expVesCW(
       redeclare package Medium = MediumCW)
     annotation (Placement(transformation(extent={{-184,-78},{-176,-70}})));
-  Modelica.Blocks.Sources.RealExpression
-                                   TCWSet(y=froDegC.Celsius + dTApp)
-    annotation (Placement(transformation(extent={{-260,-18},{-240,2}})));
-  BaseClasses.Control.ChillerStage chillerStage(tWai=1800, CooCap=-mulChiSys.per.QEva_flow_nominal,
-    thehol=0.9)
+  Modelica.Blocks.Sources.Constant TCWSet(k=273.15 + 23.89)
+    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
+        "Resources/WeatherData/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    annotation (Placement(transformation(extent={{-260,-100},{-240,-80}})));
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    annotation (Placement(transformation(extent={{-222,-100},{-202,-80}})));
+  BaseClasses.Control.ChillerStage chillerStage(tWai=1800, CooCap=-mulChiSys.per.QEva_flow_nominal)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   ChillerPlantSystem.Pump.Control.SecPumCon secPumCon(          dPSetPoi=
         dP_nominal*0.5,
     tWai=1800,
     dPControl(conPID(k=0.0001)))
     annotation (Placement(transformation(extent={{60,42},{80,62}})));
-  ChillerPlantSystem.CoSimulation.CooLoa cooLoa(tsta=200*86400, tend=201*86400)
-    annotation (Placement(transformation(extent={{180,26},{160,46}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWBuiEnt(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -162,11 +160,11 @@ model ChillerPlantSystem_FMU
         origin={110,-90})));
   Buildings.Utilities.IO.BCVTB.To_degC toDegC
     annotation (Placement(transformation(extent={{164,-58},{184,-38}})));
-  Buildings.Utilities.IO.BCVTB.From_degC froDegC
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
-  Modelica.Blocks.Nonlinear.Limiter TCHWSet(uMax=273.15 + 5.56*2, uMin=273.15
-         + 5.56)
-    annotation (Placement(transformation(extent={{-214,32},{-194,52}})));
+  Modelica.Blocks.Interfaces.RealInput Loa "Cooling load"
+    annotation (Placement(transformation(extent={{280,2},{240,42}})));
+  parameter
+    Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD
+    datChi[3] annotation (Placement(transformation(extent={{80,88},{100,108}})));
 equation
   connect(senTCHWByp.port_a, senMasFloByp.port_b) annotation (Line(
       points={{0,-20},{0,-42}},
@@ -178,6 +176,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
+  connect(mulChiSys.TCHWSet, TCHWSet.y) annotation (Line(
+      points={{-97.71,-1.4},{-142,-1.4},{-142,48},{-239,48}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(mulChiSys.port_a_CHW, pumPriCHW.port_b) annotation (Line(
       points={{-58,6.2},{-54,6.2},{-54,18},{-48,18}},
       color={0,127,255},
@@ -221,10 +224,29 @@ equation
       thickness=1));
 
   connect(TCWSet.y, cooTowWithByp.TCWSet) annotation (Line(
-      points={{-239,-8},{-220,-8},{-220,-28},{-189.26,-28}},
+      points={{-239,-10},{-220,-10},{-220,-28},{-189.26,-28}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
+  connect(weaData.weaBus, weaBus) annotation (Line(
+      points={{-240,-90},{-212,-90}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus.TWetBul, cooTowWithByp.TWetBul) annotation (Line(
+      points={{-212,-90},{-200,-90},{-200,-36},{-198,-36},{-198,-36.4},{-189.26,
+          -36.4}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
 
   connect(pumSecCHW.port_a, senMasFloByp.port_a) annotation (Line(
       points={{44,-90},{0,-90},{0,-62},{-1.83187e-015,-62}},
@@ -232,7 +254,7 @@ equation
       smooth=Smooth.None,
       thickness=1));
   connect(bui.port_b, pumPriCHW.port_a) annotation (Line(
-      points={{86,18},{-12,18}},
+      points={{88,18},{-12,18}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
@@ -273,11 +295,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(secPumCon.dP, bui.dP) annotation (Line(
-      points={{58,48},{44,48},{44,22},{85,22}},
+      points={{58,48},{44,48},{44,22},{87,22}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(bui.y, secPumCon.yVal) annotation (Line(
-      points={{85,26},{85,26},{48,26},{48,56},{58,56}},
+      points={{87,26},{68,26},{48,26},{48,56},{58,56}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(secPumCon.y, pumSecCHW.Spe) annotation (Line(
@@ -285,57 +307,34 @@ equation
           -79.2}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(cooLoa.Loa, bui.Loa) annotation (Line(
-      points={{159,36},{138,36},{138,22},{106.9,22}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(pumSecCHW.port_b, senTCHWBuiEnt.port_a) annotation (Line(
       points={{78,-90},{100,-90}},
       color={0,127,255},
       thickness=1));
   connect(senTCHWBuiEnt.port_b, bui.port_a) annotation (Line(
-      points={{120,-90},{140,-90},{140,18},{106,18}},
+      points={{120,-90},{140,-90},{140,18},{108,18}},
       color={0,127,255},
       thickness=1));
   connect(senTCHWBuiEnt.T, toDegC.Kelvin) annotation (Line(
       points={{110,-79},{110,-79},{110,-48},{162,-48}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(toDegC.Celsius, cooLoa.CHW_temp) annotation (Line(
-      points={{185,-48},{214,-48},{214,36},{182,36}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(bui.LoaCalSig, chillerStage.CooLoa) annotation (Line(
-      points={{85,8},{54,8},{54,10},{12,10},{12,100},{-90,100},{-90,70},{-82,70}},
+      points={{87,8},{54,8},{54,10},{12,10},{12,100},{-90,100},{-90,70},{-82,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
 
-  connect(froDegC.Kelvin, cooTowWithByp.TWetBul) annotation (Line(
-      points={{-219,-90.2},{-200,-90.2},{-200,-36.4},{-189.26,-36.4}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(froDegC.Celsius, cooLoa.TOutWetBul) annotation (Line(
-      points={{-242,-90.4},{-260,-90.4},{-260,-120},{150,-120},{150,32},{159,32}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-
-  connect(TCHWSetReset.y, TCHWSet.u) annotation (Line(
-      points={{-239,42},{-230,42},{-216,42}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(TCHWSet.y, mulChiSys.TCHWSet) annotation (Line(
-      points={{-193,42},{-138,42},{-138,-1.4},{-97.71,-1.4}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+  connect(bui.Loa, Loa)
+    annotation (Line(points={{108.9,22},{260,22}}, color={0,0,127}));
   annotation (__Dymola_Commands(file=
           "modelica://ChillerPlantSystem/Resources/Scripts/Dymola/LejeunePlant/ChillerPlantSystem.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-140},{240,
             120}})),
     experiment(
-      StartTime=1.728e+007,
-      StopTime=1.73664e+007,
-      __Dymola_NumberOfIntervals=1440,
+      StartTime=2.53152e+007,
+      StopTime=2.60064e+007,
+      __Dymola_NumberOfIntervals=11520,
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
@@ -352,4 +351,4 @@ equation
 <p>The parameters for the condenser water pump.</p>
 <p><img src=\"Resources/Images/lejeunePlant/CWPum.png\" alt=\"image\"/> </p>
 </html>"));
-end ChillerPlantSystem_FMU;
+end ChillerPlantSystem;

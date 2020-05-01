@@ -86,8 +86,6 @@ model ChillerPlantSystem_FMU_fault
     N_nominal=1500,
     dPFrihealos_nominal=dP_nominal*0.5)
     annotation (Placement(transformation(extent={{44,-108},{78,-72}})));
-  Modelica.Blocks.Sources.Constant TCHWSet(k=273.15 + 5.56)
-    annotation (Placement(transformation(extent={{-260,38},{-240,58}})));
   ChillerPlantSystem.Pump.PumpSystem pumPriCHW(
     Motor_eta=Motor_eta,
     Hydra_eta=Hydra_eta,
@@ -163,6 +161,12 @@ model ChillerPlantSystem_FMU_fault
   Modelica.Blocks.Sources.RealExpression
                                    TCWSet(y=froDegC.Celsius + dTApp)
     annotation (Placement(transformation(extent={{-262,-10},{-242,10}})));
+  Modelica.Blocks.Sources.RealExpression TCHWSetReset(y=(cooLoa.building_fmu_fmu1.TOutDryBul
+         - 15.56)/(11.11)*(-5.55) + 11.22 + 273.15)
+    annotation (Placement(transformation(extent={{-260,32},{-240,52}})));
+  Modelica.Blocks.Nonlinear.Limiter TCHWSet(uMax=273.15 + 5.56*2, uMin=273.15
+         + 5.56)
+    annotation (Placement(transformation(extent={{-214,32},{-194,52}})));
 equation
   connect(senTCHWByp.port_a, senMasFloByp.port_b) annotation (Line(
       points={{0,-20},{0,-42}},
@@ -174,11 +178,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=1));
-  connect(mulChiSys.TCHWSet, TCHWSet.y) annotation (Line(
-      points={{-97.71,-1.4},{-142,-1.4},{-142,48},{-239,48}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(mulChiSys.port_a_CHW, pumPriCHW.port_b) annotation (Line(
       points={{-58,6.2},{-54,6.2},{-54,18},{-48,18}},
       color={0,127,255},
@@ -316,6 +315,14 @@ equation
       pattern=LinePattern.Dash));
   connect(TCWSet.y, cooTowWithByp.TCWSet) annotation (Line(
       points={{-241,0},{-218,0},{-218,-28},{-189.26,-28}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(TCHWSetReset.y, TCHWSet.u) annotation (Line(
+      points={{-239,42},{-230,42},{-216,42}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(TCHWSet.y, mulChiSys.TCHWSet) annotation (Line(
+      points={{-193,42},{-138,42},{-138,-1.4},{-97.71,-1.4}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (__Dymola_Commands(file=

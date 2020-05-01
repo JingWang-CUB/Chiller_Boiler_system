@@ -10127,6 +10127,16 @@ ExternalInterface:FunctionalMockupUnitExport:From:Variable,
     CoolSys1 Supply Outlet Node,  !- Output:Variable Index Key Name
     System Node Temperature ,!- Output:Variable Name
     T_act;                   !- FMU Variable Name
+	
+ExternalInterface:FunctionalMockupUnitExport:From:Variable,
+    ENVIRONMENT,      !- Output:Variable Index Key Name
+    Site Outdoor Air Drybulb Temperature,  !- Output:Variable Name
+    TOutDryBul;  !- FMU Variable Name
+
+ExternalInterface:FunctionalMockupUnitExport:From:Variable,
+    ENVIRONMENT,      !- Output:Variable Index Key Name
+    Site Outdoor Air Wetbulb Temperature,  !- Output:Variable Name
+    TOutWetBul;  !- FMU Variable Name
 
 
 !-   ===========  ALL OBJECTS IN CLASS: EXTERNALINTERFACE:FUNCTIONALMOCKUPUNITEXPORT:TO:SCHEDULE ===========
@@ -10831,6 +10841,17 @@ OutputControl:ReportingTolerances,
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
 
+Output:Variable,
+    *,                       !- Key Value
+    Site Outdoor Air Drybulb Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Site Outdoor Air Wetbulb Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency	
+
+	
 Output:Variable,
     CoolSys1 Demand Inlet Node,  !- Key Value
     System Node Temperature ,!- Variable Name

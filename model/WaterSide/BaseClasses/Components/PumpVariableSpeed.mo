@@ -44,11 +44,11 @@ model PumpVariableSpeed
     redeclare package Medium = Medium,
     addPowerToMedium=false,
     allowFlowReversal=true,
-    riseTime=30,
     per(
       pressure(V_flow=v_flow_rate, dp=Pressure),
       hydraulicEfficiency(V_flow=v_flow_rate, eta=Hydra_eta),
-      motorEfficiency(V_flow=v_flow_rate, eta=Motor_eta)))
+      motorEfficiency(V_flow=v_flow_rate, eta=Motor_eta)),
+    riseTime=120)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     m_flow_nominal=m_flow_nominal,
